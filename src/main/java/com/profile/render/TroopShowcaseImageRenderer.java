@@ -28,8 +28,8 @@ public class TroopShowcaseImageRenderer {
     public static BufferedImage render(Profile profile) throws IOException {
         logger.info(String.format("Generating troop showcase image for %s", profile.tag));
 
-        int width = 2950;
-        int height = 2050;
+        int width = 1033;
+        int height = 718;
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -45,12 +45,12 @@ public class TroopShowcaseImageRenderer {
         g.fillRect(0, 0, width, height);
 
         // Draw each section
-        drawHeroSection(g, 50, 50, profile.heroes);
-        drawPetSection(g, 50, 675, profile.troops);
-        drawTroopSection(g, 850, 50, profile.troops);
-        drawSpellSection(g, 2150, 50, profile.spells);
-        drawSiegeMachineSection(g, 850, 1675, profile.troops);
-        ImageManager.drawSignature(g, 50, 1750, 8);
+        drawHeroSection(g, 18, 18, profile.heroes);
+        drawPetSection(g, 18, 236, profile.troops);
+        drawTroopSection(g, 298, 18, profile.troops);
+        drawSpellSection(g, 753, 18, profile.spells);
+        drawSiegeMachineSection(g, 298, 586, profile.troops);
+        ImageManager.drawSignature(g, 18, 613, 3);
 
         g.dispose();
         return image;
@@ -105,14 +105,14 @@ public class TroopShowcaseImageRenderer {
     }
 
     public static void drawHeroSection(Graphics2D g, int x, int y, Unit[] heroes) {
-        int width = 750;
-        int height = 575;
-        int radius = 25;
+        int width = 263;
+        int height = 201;
+        int radius = 9;
 
         g.setColor(Color.decode("#636e8f"));
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        FontUtils.drawClashFont(g, "Heroes", x + 25, y + 20, 70, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Heroes", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
         TroopData barbarianKing = getTroopData(heroes, "Barbarian King");
         TroopData archerQueen = getTroopData(heroes, "Archer Queen");
@@ -120,23 +120,23 @@ public class TroopShowcaseImageRenderer {
         TroopData grandWarden = getTroopData(heroes, "Grand Warden");
         TroopData royalChampion = getTroopData(heroes, "Royal Champion");
 
-        drawTroopIcon(barbarianKing, g, "Icon_HV_Hero_Barbarian_King", x + 25, y + 100);
-        drawTroopIcon(archerQueen, g, "Icon_HV_Hero_Archer_Queen", x + 275, y + 100);
-        drawTroopIcon(minionPrince, g, "Icon_HV_Hero_Minion_Prince", x + 525, y + 100);
+        drawTroopIcon(barbarianKing, g, "Icon_HV_Hero_Barbarian_King", x + 9, y + 35);
+        drawTroopIcon(archerQueen, g, "Icon_HV_Hero_Archer_Queen", x + 96, y + 35);
+        drawTroopIcon(minionPrince, g, "Icon_HV_Hero_Minion_Prince", x + 184, y + 35);
 
-        drawTroopIcon(grandWarden, g, "Icon_HV_Hero_Grand_Warden", x + 25, y + 350);
-        drawTroopIcon(royalChampion, g, "Icon_HV_Hero_Royal_Champion", x + 275, y + 350);
+        drawTroopIcon(grandWarden, g, "Icon_HV_Hero_Grand_Warden", x + 9, y + 123);
+        drawTroopIcon(royalChampion, g, "Icon_HV_Hero_Royal_Champion", x + 96, y + 123);
     }
 
     public static void drawPetSection(Graphics2D g, int x, int y, Unit[] pets) {
-        int width = 750;
-        int height = 1075;
-        int radius = 25;
+        int width = 263;
+        int height = 376;
+        int radius = 9;
 
         g.setColor(Color.decode("#636e8f"));
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        FontUtils.drawClashFont(g, "Pets", x + 25, y + 20, 70, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Pets", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
         TroopData lassi = getTroopData(pets, "L.A.S.S.I");
         TroopData mightyYak = getTroopData(pets, "Mighty Yak");
@@ -150,28 +150,28 @@ public class TroopShowcaseImageRenderer {
         TroopData angryJelly = getTroopData(pets, "Angry Jelly");
         TroopData sneezy = getTroopData(pets, "Sneezy");
 
-        drawTroopIcon(lassi, g, "Icon_HV_Hero_Pets_LASSI", x + 25, y + 100);
-        drawTroopIcon(electroOwl, g, "Icon_HV_Hero_Pets_Electro_Owl", x + 275, y + 100);
-        drawTroopIcon(mightyYak, g, "Icon_HV_Hero_Pets_Mighty_Yak", x + 525, y + 100);
-        drawTroopIcon(unicorn, g, "Icon_HV_Hero_Pets_Unicorn", x + 25, y + 350);
-        drawTroopIcon(frosty, g, "Icon_HV_Hero_Pets_Frosty", x + 275, y + 350);
-        drawTroopIcon(diggy, g, "Icon_HV_Hero_Pets_Diggy", x + 525, y + 350);
-        drawTroopIcon(poisonLizard, g, "Icon_HV_Hero_Pets_Poison_Lizard", x + 25, y + 600);
-        drawTroopIcon(phoenix, g, "Icon_HV_Hero_Pets_Phoenix", x + 275, y + 600);
-        drawTroopIcon(spiritFox, g, "Icon_HV_Hero_Pets_Spirit_Fox", x + 525, y + 600);
-        drawTroopIcon(angryJelly, g, "Icon_HV_Hero_Pets_Angry_Jelly", x + 25, y + 850);
-        drawTroopIcon(sneezy, g, "Icon_HV_Hero_Pets_Sneezy", x + 275, y + 850);
+        drawTroopIcon(lassi, g, "Icon_HV_Hero_Pets_LASSI", x + 9, y + 35);
+        drawTroopIcon(electroOwl, g, "Icon_HV_Hero_Pets_Electro_Owl", x + 96, y + 35);
+        drawTroopIcon(mightyYak, g, "Icon_HV_Hero_Pets_Mighty_Yak", x + 184, y + 35);
+        drawTroopIcon(unicorn, g, "Icon_HV_Hero_Pets_Unicorn", x + 9, y + 123);
+        drawTroopIcon(frosty, g, "Icon_HV_Hero_Pets_Frosty", x + 96, y + 123);
+        drawTroopIcon(diggy, g, "Icon_HV_Hero_Pets_Diggy", x + 184, y + 123);
+        drawTroopIcon(poisonLizard, g, "Icon_HV_Hero_Pets_Poison_Lizard", x + 9, y + 210);
+        drawTroopIcon(phoenix, g, "Icon_HV_Hero_Pets_Phoenix", x + 96, y + 210);
+        drawTroopIcon(spiritFox, g, "Icon_HV_Hero_Pets_Spirit_Fox", x + 184, y + 210);
+        drawTroopIcon(angryJelly, g, "Icon_HV_Hero_Pets_Angry_Jelly", x + 9, y + 298);
+        drawTroopIcon(sneezy, g, "Icon_HV_Hero_Pets_Sneezy", x + 96, y + 298);
     }
 
     public static void drawTroopSection(Graphics2D g, int x, int y, Unit[] troops) {
-        int width = 1250;
-        int height = 1575;
-        int radius = 30;
+        int width = 438;
+        int height = 551;
+        int radius = 10;
 
         g.setColor(Color.decode("#636e8f"));
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        FontUtils.drawClashFont(g, "Troops", x + 25, y + 20, 70, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Troops", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
         TroopData barbarian = getTroopData(troops, "Barbarian");
         TroopData archer = getTroopData(troops, "Archer");
@@ -204,52 +204,52 @@ public class TroopShowcaseImageRenderer {
         TroopData druid = getTroopData(troops, "Druid");
         TroopData furnace = getTroopData(troops, "Furnace");
 
-        drawTroopIcon(barbarian, g, "Icon_HV_Barbarian", x + 25, y + 100);
-        drawTroopIcon(archer, g, "Icon_HV_Archer", x + 275, y + 100);
-        drawTroopIcon(giant, g, "Icon_HV_Giant", x + 525, y + 100);
-        drawTroopIcon(goblin, g, "Icon_HV_Goblin", x + 775, y + 100);
-        drawTroopIcon(wallBreaker, g, "Icon_HV_Wall_Breaker", x + 1025, y + 100);
+        drawTroopIcon(barbarian, g, "Icon_HV_Barbarian", x + 9, y + 35);
+        drawTroopIcon(archer, g, "Icon_HV_Archer", x + 96, y + 35);
+        drawTroopIcon(giant, g, "Icon_HV_Giant", x + 184, y + 35);
+        drawTroopIcon(goblin, g, "Icon_HV_Goblin", x + 271, y + 35);
+        drawTroopIcon(wallBreaker, g, "Icon_HV_Wall_Breaker", x + 359, y + 35);
 
-        drawTroopIcon(balloon, g, "Icon_HV_Balloon", x + 25, y + 350);
-        drawTroopIcon(wizard, g, "Icon_HV_Wizard", x + 275, y + 350);
-        drawTroopIcon(healer, g, "Icon_HV_Healer", x + 525, y + 350);
-        drawTroopIcon(dragon, g, "Icon_HV_Dragon", x + 775, y + 350);
-        drawTroopIcon(pekka, g, "Icon_HV_P.E.K.K.A", x + 1025, y + 350);
+        drawTroopIcon(balloon, g, "Icon_HV_Balloon", x + 9, y + 123);
+        drawTroopIcon(wizard, g, "Icon_HV_Wizard", x + 96, y + 123);
+        drawTroopIcon(healer, g, "Icon_HV_Healer", x + 184, y + 123);
+        drawTroopIcon(dragon, g, "Icon_HV_Dragon", x + 271, y + 123);
+        drawTroopIcon(pekka, g, "Icon_HV_P.E.K.K.A", x + 359, y + 123);
 
-        drawTroopIcon(babyDragon, g, "Icon_HV_Baby_Dragon", x + 25, y + 600);
-        drawTroopIcon(miner, g, "Icon_HV_Miner", x + 275, y + 600);
-        drawTroopIcon(electroDragon, g, "Icon_HV_Electro_Dragon", x + 525, y + 600);
-        drawTroopIcon(yeti, g, "Icon_HV_Yeti", x + 775, y + 600);
-        drawTroopIcon(dragonRider, g, "Icon_HV_Dragon_Rider", x + 1025, y + 600);
+        drawTroopIcon(babyDragon, g, "Icon_HV_Baby_Dragon", x + 9, y + 210);
+        drawTroopIcon(miner, g, "Icon_HV_Miner", x + 96, y + 210);
+        drawTroopIcon(electroDragon, g, "Icon_HV_Electro_Dragon", x + 184, y + 210);
+        drawTroopIcon(yeti, g, "Icon_HV_Yeti", x + 271, y + 210);
+        drawTroopIcon(dragonRider, g, "Icon_HV_Dragon_Rider", x + 359, y + 210);
 
-        drawTroopIcon(electroTitan, g, "Icon_HV_Electro_Titan", x + 25, y + 850);
-        drawTroopIcon(rootRider, g, "Icon_HV_Root_Rider", x + 275, y + 850);
-        drawTroopIcon(thrower, g, "Icon_HV_Thrower", x + 525, y + 850);
-        drawTroopIcon(minion, g, "Icon_HV_Minion", x + 775, y + 850);
-        drawTroopIcon(hogRider, g, "Icon_HV_Hog_Rider", x + 1025, y + 850);
+        drawTroopIcon(electroTitan, g, "Icon_HV_Electro_Titan", x + 9, y + 298);
+        drawTroopIcon(rootRider, g, "Icon_HV_Root_Rider", x + 96, y + 298);
+        drawTroopIcon(thrower, g, "Icon_HV_Thrower", x + 184, y + 298);
+        drawTroopIcon(minion, g, "Icon_HV_Minion", x + 271, y + 298);
+        drawTroopIcon(hogRider, g, "Icon_HV_Hog_Rider", x + 359, y + 298);
 
-        drawTroopIcon(valkyrie, g, "Icon_HV_Valkyrie", x + 25, y + 1100);
-        drawTroopIcon(golem, g, "Icon_HV_Golem", x + 275, y + 1100);
-        drawTroopIcon(witch, g, "Icon_HV_Witch", x + 525, y + 1100);
-        drawTroopIcon(lavaHound, g, "Icon_HV_Lava_Hound", x + 775, y + 1100);
-        drawTroopIcon(bowler, g, "Icon_HV_Bowler", x + 1025, y + 1100);
+        drawTroopIcon(valkyrie, g, "Icon_HV_Valkyrie", x + 9, y + 385);
+        drawTroopIcon(golem, g, "Icon_HV_Golem", x + 96, y + 385);
+        drawTroopIcon(witch, g, "Icon_HV_Witch", x + 184, y + 385);
+        drawTroopIcon(lavaHound, g, "Icon_HV_Lava_Hound", x + 271, y + 385);
+        drawTroopIcon(bowler, g, "Icon_HV_Bowler", x + 359, y + 385);
 
-        drawTroopIcon(iceGolem, g, "Icon_HV_Ice_Golem", x + 25, y + 1350);
-        drawTroopIcon(headhunter, g, "Icon_HV_Headhunter", x + 275, y + 1350);
-        drawTroopIcon(apprenticeWarden, g, "Icon_HV_Apprentice_Warden", x + 525, y + 1350);
-        drawTroopIcon(druid, g, "Icon_HV_Druid", x + 775, y + 1350);
-        drawTroopIcon(furnace, g, "Icon_HV_Furnace", x + 1025, y + 1350);
+        drawTroopIcon(iceGolem, g, "Icon_HV_Ice_Golem", x + 9, y + 473);
+        drawTroopIcon(headhunter, g, "Icon_HV_Headhunter", x + 96, y + 473);
+        drawTroopIcon(apprenticeWarden, g, "Icon_HV_Apprentice_Warden", x + 184, y + 473);
+        drawTroopIcon(druid, g, "Icon_HV_Druid", x + 271, y + 473);
+        drawTroopIcon(furnace, g, "Icon_HV_Furnace", x + 359, y + 473);
     }
 
     public static void drawSpellSection(Graphics2D g, int x, int y, Unit[] spells) {
-        int width = 750;
-        int height = 1325;
-        int radius = 30;
+        int width = 263;
+        int height = 464;
+        int radius = 10;
 
         g.setColor(Color.decode("#636e8f"));
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        FontUtils.drawClashFont(g, "Spells", x + 25, y + 20, 70, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Spells", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
         TroopData lightning = getTroopData(spells, "Lightning Spell");
         TroopData heal = getTroopData(spells, "Healing Spell");
@@ -267,32 +267,36 @@ public class TroopShowcaseImageRenderer {
         TroopData bat = getTroopData(spells, "Bat Spell");
         TroopData overgrowth = getTroopData(spells, "Overgrowth Spell");
 
-        drawTroopIcon(lightning, g, "Icon_HV_Spell_Lightning", x + 25, y + 100);
-        drawTroopIcon(heal, g, "Icon_HV_Spell_Heal", x + 275, y + 100);
-        drawTroopIcon(rage, g, "Icon_HV_Spell_Rage", x + 525, y + 100);
-        drawTroopIcon(jump, g, "Icon_HV_Spell_Jump", x + 25, y + 350);
-        drawTroopIcon(freeze, g, "Icon_HV_Spell_Freeze", x + 275, y + 350);
-        drawTroopIcon(clone, g, "Icon_HV_Spell_Clone", x + 525, y + 350);
-        drawTroopIcon(invisibility, g, "Icon_HV_Spell_Invisibility", x + 25, y + 600);
-        drawTroopIcon(recall, g, "Icon_HV_Spell_Recall", x + 275, y + 600);
-        drawTroopIcon(revive, g, "Icon_HV_Spell_Revive", x + 525, y + 600);
-        drawTroopIcon(poison, g, "Icon_HV_Dark_Spell_Poison", x + 25, y + 850);
-        drawTroopIcon(earthquake, g, "Icon_HV_Dark_Spell_Earthquake", x + 275, y + 850);
-        drawTroopIcon(haste, g, "Icon_HV_Dark_Spell_Haste", x + 525, y + 850);
-        drawTroopIcon(skeleton, g, "Icon_HV_Dark_Spell_Skeleton", x + 25, y + 1100);
-        drawTroopIcon(bat, g, "Icon_HV_Dark_Spell_Bat", x + 275, y + 1100);
-        drawTroopIcon(overgrowth, g, "Icon_HV_Dark_Spell_Overgrowth", x + 525, y + 1100);
+        drawTroopIcon(lightning, g, "Icon_HV_Spell_Lightning", x + 9, y + 35);
+        drawTroopIcon(heal, g, "Icon_HV_Spell_Heal", x + 96, y + 35);
+        drawTroopIcon(rage, g, "Icon_HV_Spell_Rage", x + 184, y + 35);
+
+        drawTroopIcon(jump, g, "Icon_HV_Spell_Jump", x + 9, y + 123);
+        drawTroopIcon(freeze, g, "Icon_HV_Spell_Freeze", x + 96, y + 123);
+        drawTroopIcon(clone, g, "Icon_HV_Spell_Clone", x + 184, y + 123);
+
+        drawTroopIcon(invisibility, g, "Icon_HV_Spell_Invisibility", x + 9, y + 210);
+        drawTroopIcon(recall, g, "Icon_HV_Spell_Recall", x + 96, y + 210);
+        drawTroopIcon(revive, g, "Icon_HV_Spell_Revive", x + 184, y + 210);
+
+        drawTroopIcon(poison, g, "Icon_HV_Dark_Spell_Poison", x + 9, y + 298);
+        drawTroopIcon(earthquake, g, "Icon_HV_Dark_Spell_Earthquake", x + 96, y + 298);
+        drawTroopIcon(haste, g, "Icon_HV_Dark_Spell_Haste", x + 184, y + 298);
+
+        drawTroopIcon(skeleton, g, "Icon_HV_Dark_Spell_Skeleton", x + 9, y + 385);
+        drawTroopIcon(bat, g, "Icon_HV_Dark_Spell_Bat", x + 96, y + 385);
+        drawTroopIcon(overgrowth, g, "Icon_HV_Dark_Spell_Overgrowth", x + 184, y + 385);
     }
 
     public static void drawSiegeMachineSection(Graphics2D g, int x, int y, Unit[] siegeMachines) {
-        int width = 2050;
-        int height = 350;
-        int radius = 30;
+        int width = 718;
+        int height = 123;
+        int radius = 11;
 
         g.setColor(Color.decode("#636e8f"));
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        FontUtils.drawClashFont(g, "Siege Machines", x + 25, y + 20, 70, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Siege Machines", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
         TroopData wallWrecker = getTroopData(siegeMachines, "Wall Wrecker");
         TroopData battleBlimp = getTroopData(siegeMachines, "Battle Blimp");
@@ -303,14 +307,14 @@ public class TroopShowcaseImageRenderer {
         TroopData battleDrill = getTroopData(siegeMachines, "Battle Drill");
         TroopData troopLauncher = getTroopData(siegeMachines, "Troop Launcher");
  
-        drawTroopIcon(wallWrecker, g, "Icon_HV_Siege_Machine_Wall_Wrecker", x + 25, y + 100);
-        drawTroopIcon(battleBlimp, g, "Icon_HV_Siege_Machine_Battle_Blimp", x + 275, y + 100);
-        drawTroopIcon(stoneSlammer, g, "Icon_HV_Siege_Machine_Stone_Slammer", x + 525, y + 100);
-        drawTroopIcon(siegeBarracks, g, "Icon_HV_Siege_Machine_Siege_Barracks", x + 775, y + 100);
-        drawTroopIcon(logLauncher, g, "Icon_HV_Siege_Machine_Log_Launcher", x + 1025, y + 100);
-        drawTroopIcon(flameFlinger, g, "Icon_HV_Siege_Machine_Flame_Flinger", x + 1275, y + 100);
-        drawTroopIcon(battleDrill, g, "Icon_HV_Siege_Machine_Battle_Drill", x + 1525, y + 100);
-        drawTroopIcon(troopLauncher, g, "Icon_HV_Siege_Machine_Troop_Launcher", x + 1775, y + 100);
+        drawTroopIcon(wallWrecker, g, "Icon_HV_Siege_Machine_Wall_Wrecker", x + 9, y + 35);
+        drawTroopIcon(battleBlimp, g, "Icon_HV_Siege_Machine_Battle_Blimp", x + 96, y + 35);
+        drawTroopIcon(stoneSlammer, g, "Icon_HV_Siege_Machine_Stone_Slammer", x + 184, y + 35);
+        drawTroopIcon(siegeBarracks, g, "Icon_HV_Siege_Machine_Siege_Barracks", x + 271, y + 35);
+        drawTroopIcon(logLauncher, g, "Icon_HV_Siege_Machine_Log_Launcher", x + 359, y + 35);
+        drawTroopIcon(flameFlinger, g, "Icon_HV_Siege_Machine_Flame_Flinger", x + 446, y + 35);
+        drawTroopIcon(battleDrill, g, "Icon_HV_Siege_Machine_Battle_Drill", x + 534, y + 35);
+        drawTroopIcon(troopLauncher, g, "Icon_HV_Siege_Machine_Troop_Launcher", x + 621, y + 35);
     }
 
     public static void drawTroopIcon(
@@ -331,10 +335,10 @@ public class TroopShowcaseImageRenderer {
         int x,
         int y
     ) {
-        int radius = 30;
-        int width = 200;
-        int height = 200;
-        int borderWidth = 2;
+        int radius = 10;
+        int width = 70;
+        int height = 70;
+        int borderWidth = 1;
 
         // Step 1: Draw drop shadow below everything (outside the clip)
         BlurUtils.drawDropShadow(g, x, y, width, height, radius, 0.5f);
@@ -345,8 +349,8 @@ public class TroopShowcaseImageRenderer {
         g.setClip(clipShape);
 
         // Step 3: Draw inner box
-        int paddingTop = 2;
-        int paddingSides = 2;
+        int paddingTop = 1;
+        int paddingSides = 1;
         int innerX = x + paddingSides;
         int innerY = y + paddingTop;
         int innerWidth = width - paddingSides * 2;
@@ -361,9 +365,9 @@ public class TroopShowcaseImageRenderer {
         g.drawImage(drawnImage, x, y, width, height, null);
 
         // Step 5: Draw level box if unlocked
-        int levelBoxWidth = 60;
-        int levelBoxHeight = 60;
-        int levelBoxPadding = 6;
+        int levelBoxWidth = 21;
+        int levelBoxHeight = 21;
+        int levelBoxPadding = 2;
 
         if (troopData.unlocked) {
             drawLevelBox(
@@ -373,7 +377,7 @@ public class TroopShowcaseImageRenderer {
                 y + height - levelBoxHeight - levelBoxPadding,
                 levelBoxWidth,
                 levelBoxHeight,
-                8,
+                2,
                 troopData.maxed
             );
         }
@@ -426,7 +430,7 @@ public class TroopShowcaseImageRenderer {
 
         // Outer border glow
         g.setColor(Color.WHITE);
-        g.setStroke(new BasicStroke(2));
+        g.setStroke(new BasicStroke(1));
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.draw(new RoundRectangle2D.Float(x, y, width, height, radius, radius));
 

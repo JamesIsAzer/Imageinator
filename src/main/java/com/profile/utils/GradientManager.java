@@ -4,9 +4,11 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class GradientManager {
     private static final Cache<String, Paint> gradientCache = Caffeine.newBuilder()
+        .expireAfterAccess(5, TimeUnit.MINUTES)
         .maximumSize(50)
         .build();
 
@@ -20,7 +22,7 @@ public class GradientManager {
         float[] offsets, 
         boolean horizontal
     ) {
-        String cacheKey = key + "_" + x + "_" + y + "_" + width + "_" + height + "_" +
+        String cacheKey = key + "_" + width + "_" + height + "_" +
                         (horizontal ? "horizontal" : "vertical") + "_" + generateColorKey(colors, offsets);
 
         return gradientCache.get(cacheKey, k -> {

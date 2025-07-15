@@ -17,7 +17,7 @@ public class BlurUtils {
 
     private static final Cache<ShadowKey, BufferedImage> shadowCache = Caffeine.newBuilder()
         .maximumSize(100) // or however many you think is reasonable
-        .expireAfterAccess(10, TimeUnit.MINUTES) // optional
+        .expireAfterAccess(5, TimeUnit.MINUTES) // optional
         .build();
         
     public static void drawDropShadow(Graphics2D g, int x, int y, int width, int height, int cornerRadius, float blurIntensity) {

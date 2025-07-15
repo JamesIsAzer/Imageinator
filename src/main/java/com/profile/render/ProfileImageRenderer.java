@@ -33,8 +33,8 @@ public class ProfileImageRenderer {
         logger.info(String.format("Generating profile image for %s", profile.tag));
         boolean hasLegendStats = profile.legendStatistics != null && profile.legendStatistics.bestSeason != null;
 
-        int width = 3500;
-        int height = hasLegendStats ? 2550 : 2125;
+        int width = 1225;
+        int height = hasLegendStats ? 893 : 744;
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -44,11 +44,11 @@ public class ProfileImageRenderer {
         g.setColor(Color.decode("#E8E8E0"));
         g.fillRect(0, 0, width, height);
 
-        drawNameCardSection(g, profile, 25, 25);
-        drawAchievementsSection(g, profile.achievements, 75, hasLegendStats ? 1425 : 1000);
+        drawNameCardSection(g, profile, 9, 9);
+        drawAchievementsSection(g, profile.achievements, 26, hasLegendStats ? 500 : 350);
 
         if (hasLegendStats) {
-            drawLegendLeagueSection(g, profile.legendStatistics, 25, 1000);
+            drawLegendLeagueSection(g, profile.legendStatistics, 9, 350);
         }
 
         g.dispose();
@@ -56,11 +56,11 @@ public class ProfileImageRenderer {
     }
 
     private static void drawNameCardSection(Graphics2D g, Profile profile, int x, int y) {
-        int width = 3450;
-        int height = 950;
-        int radius = 10;
-        int paddingTop = 75;
-        int paddingLeft = 75;
+        int width = 1208;
+        int height = 333;
+        int radius = 3;
+        int paddingTop = 26;
+        int paddingLeft = 26;
 
         Paint gradient = GradientManager.createOptimizedGradient("namecard", x, y, width, height,  
             new Color[] {
@@ -74,16 +74,16 @@ public class ProfileImageRenderer {
         g.setPaint(gradient);
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
 
-        g.setStroke(new BasicStroke(10));
+        g.setStroke(new BasicStroke(4));
         g.setColor(new Color(0x6A7798));
         RenderingUtility.drawRoundedRectOutline(g, x, y, width, height, radius);
 
-        drawDividerLine(g, x + paddingLeft + 1400, x + paddingLeft + 1400, y + paddingTop, y + paddingTop + 700, Color.decode("#5b5f80"), Color.decode("#abaec1"));
-        drawDividerLine(g, x + paddingLeft + 2300, x + paddingLeft + 2300, y + paddingTop, y + paddingTop + 700, Color.decode("#5b5f80"), Color.decode("#abaec1"));
+        drawDividerLine(g, x + paddingLeft + 490, x + paddingLeft + 490, y + paddingTop, y + paddingTop + 245, Color.decode("#5b5f80"), Color.decode("#abaec1"));
+        drawDividerLine(g, x + paddingLeft + 805, x + paddingLeft + 805, y + paddingTop, y + paddingTop + 245, Color.decode("#5b5f80"), Color.decode("#abaec1"));
 
-        drawNameSection(g, profile, x + paddingLeft, y + paddingTop + 50);
-        drawClanSection(g, profile, x + paddingLeft + 1600, y + paddingTop + 100);
-        drawTownhallSection(g, profile, x + paddingLeft + 2200, y + paddingTop);
+        drawNameSection(g, profile, x + paddingLeft, y + paddingTop + 18);
+        drawClanSection(g, profile, x + paddingLeft + 560, y + paddingTop + 35);
+        drawTownhallSection(g, profile, x + paddingLeft + 770, y + paddingTop);
 
         drawSeasonalSection(g, profile, x, y, width, height, radius);
     }
@@ -91,13 +91,13 @@ public class ProfileImageRenderer {
     
 
     private static void drawDividerLine(Graphics2D g, int x1, int x2, int y1, int y2, Color colour1, Color colour2) {
-        g.setStroke(new BasicStroke(8));
+        g.setStroke(new BasicStroke(3));
         g.setColor(colour1);
-        g.drawLine(x1, y1 - 3, x2, y2 - 3);
+        g.drawLine(x1, y1 - 1, x2, y2 - 1);
 
-        g.setStroke(new BasicStroke(4));
+        g.setStroke(new BasicStroke(1));
         g.setColor(colour2);
-        g.drawLine(x1 - 2, y1, x2 - 2, y2);
+        g.drawLine(x1 - 1, y1, x2 - 1, y2);
     }
 
     public static void drawNameSection(Graphics2D g, Profile profile, int x, int y) {
@@ -110,20 +110,20 @@ public class ProfileImageRenderer {
 
         // Load XP icon image
         BufferedImage xpImage = ImageManager.getCachedImage("xp");
-        g.drawImage(xpImage, x, y - 10, 200, 200, null);
+        g.drawImage(xpImage, x, y - 4, 70, 70, null);
 
         // Draw XP level
-        FontUtils.drawClashFont(g, String.valueOf(expLevel), x + 100, y + 90, 90, true, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, String.valueOf(expLevel), x + 35, y + 32, 32, true, Color.WHITE, 2);
 
         // Draw username
-        FontUtils.drawClashFont(g, username, x + 250, y - 30, 100, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, username, x + 88, y - 11, 35, false, Color.WHITE, 2);
 
         // Draw tag
-        FontUtils.drawClashFont(g, playerTag, x + 250, y + 95, 75, false, Color.decode("#CCCCCC"), 4);
+        FontUtils.drawClashFont(g, playerTag, x + 88, y + 33, 26, false, Color.decode("#CCCCCC"), 2);
 
         // Draw clan role if exists
         if (clanRole != null && !clanRole.isEmpty()) {
-            FontUtils.drawClashFont(g, mapClanRole(clanRole), x + 250, y + 190, 75, false, Color.WHITE, 6);
+            FontUtils.drawClashFont(g, mapClanRole(clanRole), x + 88, y + 67, 26, false, Color.WHITE, 2);
         }
 
         // Extract rank from legend statistics if present
@@ -134,7 +134,7 @@ public class ProfileImageRenderer {
         }
 
         // Draw league + trophy info
-        drawLeagueTrophyBanner(g, x + 100, y + 300, 350, 350, trophies, league, rank);
+        drawLeagueTrophyBanner(g, x + 35, y + 105, 123, 123, trophies, league, rank);
     }
 
     public static String mapClanRole(String clanRole) {
@@ -165,13 +165,13 @@ public class ProfileImageRenderer {
         Integer rank
     ) {
         int lineStartFromEmblemX = x + (emblemWidth / 2);
-        int lineEndX = x + emblemWidth + 750;
+        int lineEndX = x + emblemWidth + 263;
         int emblemCenterY = y + (emblemHeight / 2);
-        int line1Y = emblemCenterY - 55;
-        int line2Y = emblemCenterY + 50;
+        int line1Y = emblemCenterY - 19;
+        int line2Y = emblemCenterY + 18;
 
-        int gradientWidth = 900 + (emblemWidth / 2);
-        int gradientHeight = 700;
+        int gradientWidth = 315 + (emblemWidth / 2);
+        int gradientHeight = 245;
 
         // Gradient line 1 (dark fade)
         Paint gradient1 = GradientManager.createOptimizedGradient("leaguetrophybanner", x, y, gradientWidth, gradientHeight,
@@ -179,7 +179,7 @@ public class ProfileImageRenderer {
                 new float[]{0f, 1f},
                 true);
         g.setPaint(gradient1);
-        g.setStroke(new BasicStroke(90));
+        g.setStroke(new BasicStroke(32));
         g.drawLine(lineStartFromEmblemX, line1Y, lineEndX, line1Y);
 
         // Gradient line 2 (purple fade)
@@ -192,18 +192,18 @@ public class ProfileImageRenderer {
                 new float[]{0f, 0.5f, 1f},
                 true);
         g.setPaint(gradient2);
-        g.setStroke(new BasicStroke(110));
+        g.setStroke(new BasicStroke(39));
         g.drawLine(lineStartFromEmblemX, line2Y, lineEndX, line2Y);
 
         // League name text
         String leagueName = getLeagueName(league);
 
-        FontUtils.drawClashFont(g, leagueName, lineStartFromEmblemX + 200, line1Y - 28, 55, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, leagueName, lineStartFromEmblemX + 70, line1Y - 10, 19, false, Color.WHITE, 2);
 
         // Trophy icon
         BufferedImage trophyIcon = ImageManager.getCachedImage("trophy");
         if (trophyIcon != null) {
-            g.drawImage(trophyIcon, lineStartFromEmblemX + 200, line2Y - 45, 90, 90, null);
+            g.drawImage(trophyIcon, lineStartFromEmblemX + 70, line2Y - 16, 32, 32, null);
         }
 
         // Emblem image
@@ -226,7 +226,7 @@ public class ProfileImageRenderer {
         //}
 
         // Trophy count
-        FontUtils.drawClashFont(g, String.valueOf(trophies), lineStartFromEmblemX + 310, line2Y - 35, 85, false, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, String.valueOf(trophies), lineStartFromEmblemX + 109, line2Y - 12, 30, false, Color.WHITE, 2);
     }
 
     public static String getLeagueName(League league) {
@@ -236,32 +236,32 @@ public class ProfileImageRenderer {
 
     private static void drawClanSection(Graphics2D g, Profile profile, int x, int y) {
         Clan clan = profile.clan;
-        int clanEmblemWidth = 500;
-        int clanEmblemHeight = 500;
+        int clanEmblemWidth = 175;
+        int clanEmblemHeight = 175;
 
         if (clan != null) {
-            FontUtils.drawClashFont(g, clan.name, x + (clanEmblemWidth / 2), y, 75, true, Color.WHITE, 6);
+            FontUtils.drawClashFont(g, clan.name, x + (clanEmblemWidth / 2), y, 26, true, Color.WHITE, 2);
             BufferedImage clanEmblemImage = ImageManager.loadImageFromURL(clan.badgeUrls.medium);
-            g.drawImage(clanEmblemImage, x, y + 50, clanEmblemWidth, clanEmblemHeight, null);
+            g.drawImage(clanEmblemImage, x, y + 12, clanEmblemWidth, clanEmblemHeight, null);
         } else {
-            FontUtils.drawClashFont(g, "No Clan", x + (clanEmblemWidth / 2), y, 75, true, Color.WHITE, 6);
+            FontUtils.drawClashFont(g, "No Clan", x + (clanEmblemWidth / 2), y, 26, true, Color.WHITE, 2);
         }
     }
 
     private static void drawTownhallSection(Graphics2D g, Profile profile, int x, int y) {
         // Placeholder for townhall image rendering
-        int townhallImageWidth = 610;
-        int townhallImageHeight = 610;
+        int townhallImageWidth = 214;
+        int townhallImageHeight = 214;
 
         BufferedImage shineImage = ImageManager.getCachedImage("shine");
         BufferedImage townhallImage = ImageManager.getTownhallImage(profile.townHallLevel);
 
-        g.drawImage(shineImage, x + 130, y - 150, townhallImageWidth + 400, townhallImageHeight + 400, null);
-        g.drawImage(townhallImage, x + 330, y + 50, townhallImageWidth, townhallImageHeight, null);
+        g.drawImage(shineImage, x + 46, y - 53, townhallImageWidth + 140, townhallImageHeight + 140, null);
+        g.drawImage(townhallImage, x + 116, y + 18, townhallImageWidth, townhallImageHeight, null);
     }
 
     public static void drawSeasonalSection(Graphics2D g, Profile profile, int x, int y, int width, int height, int radius) {
-        int purpleHeight = 125;
+        int purpleHeight = 44;
         int purpleY = y + height - purpleHeight;
 
         // Draw purple background with rounded bottom corners
@@ -280,7 +280,7 @@ public class ProfileImageRenderer {
 
         // Draw top highlight line
         g.setColor(Color.decode("#7964a5"));
-        g.fillRect(x, purpleY + 3, width, 5);
+        g.fillRect(x, purpleY + 1   , width, 2);
 
         // Draw seasonal stats
         int troopsDonated = profile.donations;
@@ -288,41 +288,41 @@ public class ProfileImageRenderer {
         int attacksWon = profile.attackWins;
         int defensesWon = profile.defenseWins;
 
-        drawSeasonalPixelLine(g, 100, purpleY + 100, 500);
-        FontUtils.drawClashFont(g, "Troops donated:", 100, purpleY + 50, 50, false, Color.WHITE, 6);
-        seasonalStatBox(g, 625, purpleY + 20, String.valueOf(troopsDonated));
+        drawSeasonalPixelLine(g, 35, purpleY + 35, 175);
+        FontUtils.drawClashFont(g, "Troops donated:", 35, purpleY + 18, 18, false, Color.WHITE, 2);
+        seasonalStatBox(g, 219, purpleY + 7, String.valueOf(troopsDonated));
 
-        drawSeasonalPixelLine(g, 900, purpleY + 100, 505);
-        FontUtils.drawClashFont(g, "Troops received:", 900, purpleY + 50, 50, false, Color.WHITE, 6);
-        seasonalStatBox(g, 1425, purpleY + 20, String.valueOf(troopsReceived));
+        drawSeasonalPixelLine(g, 315, purpleY + 35, 177);
+        FontUtils.drawClashFont(g, "Troops received:", 315, purpleY + 18, 18, false, Color.WHITE, 2);
+        seasonalStatBox(g, 499, purpleY + 7, String.valueOf(troopsReceived));
 
-        drawSeasonalPixelLine(g, 1815, purpleY + 100, 390);
-        FontUtils.drawClashFont(g, "Attacks won:", 1815, purpleY + 50, 50, false, Color.WHITE, 6);
-        seasonalStatBox(g, 2215, purpleY + 20, String.valueOf(attacksWon));
+        drawSeasonalPixelLine(g, 635, purpleY + 35, 137);
+        FontUtils.drawClashFont(g, "Attacks won:", 635, purpleY + 18, 18, false, Color.WHITE, 2);
+        seasonalStatBox(g, 775, purpleY + 7, String.valueOf(attacksWon));
 
-        drawSeasonalPixelLine(g, 2615, purpleY + 100, 440);
-        FontUtils.drawClashFont(g, "Defenses won:", 2615, purpleY + 50, 50, false, Color.WHITE, 6);
-        seasonalStatBox(g, 3065, purpleY + 20, String.valueOf(defensesWon));
+        drawSeasonalPixelLine(g, 915, purpleY + 35, 154);
+        FontUtils.drawClashFont(g, "Defenses won:", 915, purpleY + 18, 18, false, Color.WHITE, 2);
+        seasonalStatBox(g, 1073, purpleY + 7, String.valueOf(defensesWon));
     }
 
     private static void drawSeasonalPixelLine(Graphics2D g, int x, int y, int width) {
         // Top line (#2e2e48)
         g.setColor(Color.decode("#2e2e48"));
-        g.fillRect(x, y, width, 4);
+        g.fillRect(x, y, width, 1);
 
         // Bottom line (#7a6296)
         g.setColor(Color.decode("#7a6296"));
-        g.fillRect(x, y + 4, width, 4);
+        g.fillRect(x, y + 1, width, 1);
     }
 
     private static void seasonalStatBox(Graphics2D g, int x, int y, String message) {
-        int width = 250;
-        int height = 90;
+        int width = 88;
+        int height = 32;
 
         g.setColor(Color.decode("#2e2c62"));
-        RenderingUtility.drawRoundedRect(g, x, y, width, height, 50);
+        RenderingUtility.drawRoundedRect(g, x, y, width, height, 18);
 
-        FontUtils.drawClashFont(g, message, x + (width / 2), y + (height / 2), 50, true, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, message, x + (width / 2), y + (height / 2), 18, true, Color.WHITE, 2);
     }
 
     public static void drawLegendLeagueSection(Graphics2D g, LegendStatistics legendStats, int x, int y) {
@@ -330,11 +330,11 @@ public class ProfileImageRenderer {
         LegendSeason previousSeason = legendStats.previousSeason;
         int legendTrophies = legendStats.legendTrophies;
 
-        int width = 3450;
-        int height = 400;
-        int radius = 10;
-        int paddingTop = 50;
-        int paddingLeft = 200;
+        int width = 1208;
+        int height = 140;
+        int radius = 3;
+        int paddingTop = 18;
+        int paddingLeft = 70;
 
         // Background gradient fill
         Paint gradient = GradientManager.createOptimizedGradient(
@@ -361,26 +361,26 @@ public class ProfileImageRenderer {
                 new float[]{0f, 0.5f, 1f},
                 true
         );
-        g.setStroke(new BasicStroke(90));
+        g.setStroke(new BasicStroke(32));
         g.setPaint(gradient1);
-        g.drawLine(x, y + 50, x + width, y + 50);
+        g.drawLine(x, y + 18, x + width, y + 18);
 
         // Outer border
-        g.setStroke(new BasicStroke(10));
+        g.setStroke(new BasicStroke(4));
         g.setColor(Color.decode("#493f75"));
         g.draw(roundedRect);
 
         // Title
-        FontUtils.drawClashFont(g, "Legend League Tournament", x + (width / 2), y + 50, 70, true, Color.WHITE, 6);
+        FontUtils.drawClashFont(g, "Legend League Tournament", x + (width / 2), y + 18, 25, true, Color.WHITE, 2);
 
         // Vertical divider lines
-        drawDividerLine(g, x + paddingLeft + 1000, x + paddingLeft + 1000, y + paddingTop + 75, y + paddingTop + 325, Color.decode("#35304e"), Color.decode("#796fa5"));
-        drawDividerLine(g, x + paddingLeft + 2175, x + paddingLeft + 2175, y + paddingTop + 75, y + paddingTop + 325, Color.decode("#35304e"), Color.decode("#796fa5"));
+        drawDividerLine(g, x + paddingLeft + 350, x + paddingLeft + 350, y + paddingTop + 26, y + paddingTop + 114, Color.decode("#35304e"), Color.decode("#796fa5"));
+        drawDividerLine(g, x + paddingLeft + 761, x + paddingLeft + 761, y + paddingTop + 26, y + paddingTop + 114, Color.decode("#35304e"), Color.decode("#796fa5"));
 
         // Sections
         drawTrophyLegendarySection(g, bestSeason, x + paddingLeft, y + (paddingTop / 2), "Best");
-        drawTrophyLegendarySection(g, previousSeason, x + paddingLeft + 1100, y + (paddingTop / 2), "Previous");
-        drawLegendTrophySection(g, legendTrophies, x + paddingLeft + 2400, y + (paddingTop / 2));
+        drawTrophyLegendarySection(g, previousSeason, x + paddingLeft + 385, y + (paddingTop / 2), "Previous");
+        drawLegendTrophySection(g, legendTrophies, x + paddingLeft + 840, y + (paddingTop / 2));
     }
 
     private static void drawTrophyLegendarySection(Graphics2D g, LegendSeason season, int x, int y, String type) {
@@ -391,40 +391,40 @@ public class ProfileImageRenderer {
         if (season != null) {
             BufferedImage legendImage = ImageManager.getCachedImage("Icon_HV_League_Legend");
             if (legendImage != null) {
-                g.drawImage(legendImage, x, y + 100, 250, 250, null);
+                g.drawImage(legendImage, x, y + 35, 88, 88, null);
             }
 
             if (rank != null) {
-                FontUtils.clashFontScaled(g, rank, x + 125, y + 220, 170, 180, true);
+                FontUtils.clashFontScaled(g, rank, x + 44, y + 77, 60, 63, true);
             }
 
-            FontUtils.drawClashFont(g,type + ": " + DateUtils.formatYearMonth(date), x + 275, y + 125, 50, false, Color.WHITE, 6);
+            FontUtils.drawClashFont(g,type + ": " + DateUtils.formatYearMonth(date), x + 96, y + 44, 18, false, Color.WHITE, 2);
 
-            drawStatBanner(g, x + 275, y + 200, 150, 150, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"));
+            drawStatBanner(g, x + 96, y + 70, 150, 53, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"));
         } else {
             BufferedImage unrankedImage = ImageManager.getCachedImage("Icon_HV_League_None");
             if (unrankedImage != null) {
-                g.drawImage(unrankedImage, x, y + 100, 250, 250, null);
+                g.drawImage(unrankedImage, x, y + 35, 88, 88, null);
             }
 
-            FontUtils.drawClashFont(g, "Did not place", x + 300, y + 250, 50, false, Color.decode("#dde2ff"), 6);
+            FontUtils.drawClashFont(g, "Did not place", x + 105, y + 88, 18, false, Color.decode("#dde2ff"), 2);
 
-            FontUtils.drawClashFont(g, type + ": " + DateUtils.formatYearMonth(DateUtils.getLastYearMonth()), x + 275, y + 125, 50, false, Color.WHITE, 6);
+            FontUtils.drawClashFont(g, type + ": " + DateUtils.formatYearMonth(DateUtils.getLastYearMonth()), x + 96, y + 44, 18, false, Color.WHITE, 2);
         }
     }
 
     public static void drawLegendTrophySection(Graphics2D g, int legendTrophies, int x, int y) {
-        FontUtils.drawClashFont(g, "Legend trophies:", x, y + 125, 50, false, Color.WHITE, 6);
-        drawStatBanner(g, x, y + 200, 150, 150, "legendtrophy", legendTrophies, Color.decode("#242135"));
+        FontUtils.drawClashFont(g, "Legend trophies:", x, y + 44, 18, false, Color.WHITE, 2);
+        drawStatBanner(g, x, y + 70, 53, 53, "legendtrophy", legendTrophies, Color.decode("#242135"));
     }
 
     private static void drawStatBanner(Graphics2D g, int x, int y, int emblemWidth, int emblemHeight, String imageName, int stat, Color statBgColor) {
         int emblemCenterY = y + (emblemHeight / 2);
-        int barHeight = 100;
+        int barHeight = 35;
         int barRadius = barHeight / 6;
         int barPadding = 20 + (emblemWidth / 2);
-        int iconSize = 60;
-        int spacingBetween = 20;
+        int iconSize = 21;
+        int spacingBetween = 7;
 
         BufferedImage statImage = ImageManager.getCachedImage(imageName);
         if (statImage == null) return;
@@ -433,14 +433,14 @@ public class ProfileImageRenderer {
 
         // Estimate text width using metrics
         
-        Font font = new Font("Clash", Font.PLAIN, 70);
+        Font font = new Font("Clash", Font.PLAIN, 25);
         g.setFont(font);
         FontMetrics metrics = g.getFontMetrics();
         int textWidth = metrics.stringWidth(statText);
 
         int barX = x + (emblemWidth / 2);
         int barY = emblemCenterY - (barHeight / 2);
-        int barWidth = barPadding + iconSize + spacingBetween + textWidth + 80;
+        int barWidth = barPadding + iconSize + spacingBetween + textWidth + 28;
 
         // Draw the rounded rectangle background
         g.setColor(statBgColor != null ? statBgColor : Color.decode("#38385c"));
@@ -454,8 +454,8 @@ public class ProfileImageRenderer {
 
         // Draw the stat text
         int textX = iconX + iconSize + spacingBetween;
-        int textY = emblemCenterY - 30;
-        FontUtils.drawClashFont(g, statText, textX, textY, 70, false, Color.WHITE, 6);
+        int textY = emblemCenterY - 11;
+        FontUtils.drawClashFont(g, statText, textX, textY, 70, false, Color.WHITE, 2);
     }
 
     private static void drawRightRoundedRect(Graphics2D g, int x, int y, int width, int height, int radius) {
@@ -491,31 +491,31 @@ public class ProfileImageRenderer {
 
         // First column
         drawAchievementCell(g, x, y, "Gold looted", "gold", goldLooted);
-        drawAchievementCell(g, x, y + 225, "Troop donations", "troopdonation", troopDonations);
-        drawAchievementCell(g, x, y + 450, "Obstacles removed", "obstaclesremoved", obstaclesRemoved);
-        drawAchievementCell(g, x, y + 675, "Clan games points", "clangames", clanGamePoints);
+        drawAchievementCell(g, x, y + 79, "Troop donations", "troopdonation", troopDonations);
+        drawAchievementCell(g, x, y + 158, "Obstacles removed", "obstaclesremoved", obstaclesRemoved);
+        drawAchievementCell(g, x, y + 236, "Clan games points", "clangames", clanGamePoints);
 
         // Second column
-        drawAchievementCell(g, x + 1125, y, "Elixir looted", "elixir", elixirLooted);
-        drawAchievementCell(g, x + 1125, y + 225, "Spell donations", "spelldonation", spellDonations);
-        drawAchievementCell(g, x + 1125, y + 450, "Season challenge pts", "goldpass", seasonChallengePts);
-        drawAchievementCell(g, x + 1125, y + 675, "War stars", "warstar", warStars);
-        drawAchievementCell(g, x + 1125, y + 900, "Successful attacks", "multiplayerattack", successfulAttacks);
+        drawAchievementCell(g, x + 394, y, "Elixir looted", "elixir", elixirLooted);
+        drawAchievementCell(g, x + 394, y + 79, "Spell donations", "spelldonation", spellDonations);
+        drawAchievementCell(g, x + 394, y + 158, "Season challenge pts", "goldpass", seasonChallengePts);
+        drawAchievementCell(g, x + 394, y + 236, "War stars", "warstar", warStars);
+        drawAchievementCell(g, x + 394, y + 315, "Successful attacks", "multiplayerattack", successfulAttacks);
 
         // Third column
-        drawAchievementCell(g, x + 2250, y, "Dark elixir looted", "darkelixir", darkElixirLooted);
-        drawAchievementCell(g, x + 2250, y + 225, "Siege donations", "siegemachinedonation", siegeDonations);
-        drawAchievementCell(g, x + 2250, y + 450, "Campaign map stars", "campaigner", campaignMapStars);
-        drawAchievementCell(g, x + 2250, y + 675, "Clan war league stars", "cwlstar", clanWarLeagueStars);
-        drawAchievementCell(g, x + 2250, y + 900, "Successful defenses", "shield", successfulDefenses);
+        drawAchievementCell(g, x + 788, y, "Dark elixir looted", "darkelixir", darkElixirLooted);
+        drawAchievementCell(g, x + 788, y + 79, "Siege donations", "siegemachinedonation", siegeDonations);
+        drawAchievementCell(g, x + 788, y + 158, "Campaign map stars", "campaigner", campaignMapStars);
+        drawAchievementCell(g, x + 788, y + 236, "Clan war league stars", "cwlstar", clanWarLeagueStars);
+        drawAchievementCell(g, x + 788, y + 315, "Successful defenses", "shield", successfulDefenses);
 
-        ImageManager.drawSignature(g, x + 100, y + 850, 8);
+        ImageManager.drawSignature(g, x + 35, y + 298, 3);
     }
 
     public static void drawAchievementCell(Graphics2D g, int x, int y, String achievementTitle, String achievementIcon, Achievement achievement) {
-        int width = 1100;
-        int height = 200;
-        int radius = 50;
+        int width = 385;
+        int height = 70;
+        int radius = 18;
 
         // Draw rounded rectangle path
         RenderingUtility.drawRoundedRect(g, x, y, width, height, radius);
@@ -535,19 +535,19 @@ public class ProfileImageRenderer {
         g.fill(new RoundRectangle2D.Float(x, y, width, height, radius, radius));
 
         // White border
-        g.setStroke(new BasicStroke(4));
+        g.setStroke(new BasicStroke(2));
         g.setColor(Color.WHITE);
         g.draw(new RoundRectangle2D.Float(x, y, width, height, radius, radius));
 
         // Reflection effect
-        drawReflection(g, x + 25, y + 25, width - 50, (height / 2) - 25);
+        drawReflection(g, x + 9, y + 9, width - 18, (height / 2) - 9);
 
         // Draw the achievement banner inside the cell
         drawAchievementBanner(g, x, y, height, width, achievementTitle, achievementIcon, achievement);
     }
 
     public static void drawReflection(Graphics2D g, int x, int y, int width, int height) {
-        int radius = 40;
+        int radius = 14;
 
         // Draw rounded rect path
         Shape roundedRect = new RoundRectangle2D.Float(x, y, width, height, radius, radius);
@@ -574,38 +574,38 @@ public class ProfileImageRenderer {
         int achievementStars = achievement.stars;
         int achievementValue = achievement.value;
 
-        int achievementIconWidth = 150;
-        int achievementIconHeight = 150;
-        int barHeight = 80;
+        int achievementIconWidth = 53;
+        int achievementIconHeight = 53;
+        int barHeight = 28;
         int barRadius = barHeight / 5;
-        int barPadding = (achievementIconWidth / 2) + 20;
-        int spacingBetween = 20;
+        int barPadding = (achievementIconWidth / 2) + 7;
+        int spacingBetween = 7;
 
-        int starsWidth = 288;
-        int starsHeight = 115;
-        int starsX = x + 30;
+        int starsWidth = 101;
+        int starsHeight = 40;
+        int starsX = x + 11;
         int starsY = y + (cellHeight / 2) - (starsHeight / 2);
 
-        int xFromStatIcon = x + starsWidth + 70;
+        int xFromStatIcon = x + starsWidth + 25;
 
         BufferedImage achievementIconImage = ImageManager.getCachedImage(achievementIcon);
         BufferedImage starsImage = ImageManager.getAchievementStarsImage(achievementStars);
 
-        int iconY = y + (cellHeight / 2) - (achievementIconHeight / 2) + 10;
-        int iconCenterY = iconY + (achievementIconHeight / 2) + 10;
+        int iconY = y + (cellHeight / 2) - (achievementIconHeight / 2) + 4;
+        int iconCenterY = iconY + (achievementIconHeight / 2) + 4;
 
         int barX = xFromStatIcon + (achievementIconWidth / 2);
         int barY = iconCenterY - (barHeight / 2);
 
         String text = FontUtils.formatNumberWithSpaces(achievementValue);
-        Font font = new Font("Clash", Font.PLAIN, 60);
+        Font font = new Font("Clash", Font.PLAIN, 21);
         g.setFont(font);
         FontMetrics metrics = g.getFontMetrics();
         int textWidth = metrics.stringWidth(text);
 
         int barWidth = Math.max(
-                barPadding + spacingBetween + textWidth + 20,
-                cellWidth - starsWidth - (achievementIconWidth / 2) - 300
+                barPadding + spacingBetween + textWidth + 7,
+                cellWidth - starsWidth - (achievementIconWidth / 2) - 105
         );
 
         g.setColor(Color.decode("#38385c"));
@@ -617,8 +617,8 @@ public class ProfileImageRenderer {
         g.drawImage(starsImage, starsX, starsY, starsWidth, starsHeight, null);
 
         int textX = iconX + spacingBetween;
-        int textY = iconCenterY - 30;
-        FontUtils.drawClashFont(g, achievementTitle, iconX, textY - 55, 40, false, Color.WHITE, 6);
-        FontUtils.drawClashFont(g, text, textX, textY, 60, false, Color.WHITE, 6);
+        int textY = iconCenterY - 11;
+        FontUtils.drawClashFont(g, achievementTitle, iconX, textY - 19, 14, false, Color.WHITE, 2);
+        FontUtils.drawClashFont(g, text, textX, textY, 21, false, Color.WHITE, 2);
     }
 }

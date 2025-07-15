@@ -20,7 +20,7 @@ import java.util.List;
 public class ImageManager {
 
     private static final Cache<String, BufferedImage> imageCache = Caffeine.newBuilder()
-        .maximumSize(100)
+        .maximumSize(200)
         .softValues()
         .build();
 
@@ -145,8 +145,8 @@ public class ImageManager {
     public static void drawSignature(Graphics2D g, int x, int y, int outline) {
         BufferedImage creatorLogo = getCachedImage("CreatorLogo");
 
-        g.drawImage(creatorLogo, x + 50, y + 75, 150, 150, null);
+        g.drawImage(creatorLogo, x + 18, y + 26, 53, 53, null);
 
-        FontUtils.drawClashFont(g, "Azer", x + 250, y + 85, 150, false, Color.WHITE, outline);
+        FontUtils.drawClashFont(g, "Azer", x + 88, y + 30, 53, false, Color.WHITE, outline);
     }
 }
