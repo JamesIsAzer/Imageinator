@@ -93,7 +93,7 @@ public class FontUtils {
         }
 
         // Draw with final font size
-        drawClashFont(g, message, x, y, fontSize, centered, Color.WHITE, 6);
+        drawClashFont(g, message, x, y, fontSize, centered, Color.WHITE, 2);
     }
 
     public static String formatNumberWithSpaces(int number) {

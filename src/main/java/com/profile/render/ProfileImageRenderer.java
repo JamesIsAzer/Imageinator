@@ -400,7 +400,7 @@ public class ProfileImageRenderer {
 
             FontUtils.drawClashFont(g,type + ": " + DateUtils.formatYearMonth(date), x + 96, y + 44, 18, false, Color.WHITE, 2);
 
-            drawStatBanner(g, x + 96, y + 70, 150, 53, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"));
+            drawStatBanner(g, x + 96, y + 70, 53, 53, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"));
         } else {
             BufferedImage unrankedImage = ImageManager.getCachedImage("Icon_HV_League_None");
             if (unrankedImage != null) {
@@ -455,7 +455,7 @@ public class ProfileImageRenderer {
         // Draw the stat text
         int textX = iconX + iconSize + spacingBetween;
         int textY = emblemCenterY - 11;
-        FontUtils.drawClashFont(g, statText, textX, textY, 70, false, Color.WHITE, 2);
+        FontUtils.drawClashFont(g, statText, textX, textY, 25, false, Color.WHITE, 2);
     }
 
     private static void drawRightRoundedRect(Graphics2D g, int x, int y, int width, int height, int radius) {
