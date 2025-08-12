@@ -99,14 +99,13 @@ public class ImageManager {
                     e.printStackTrace();
                 }
 
-                // Optional small delay between batches to avoid memory spikes
                 if (i + batchSize < uniqueList.size()) {
                     Thread.sleep(100);
                 }
             }
         } finally {
             executor.shutdown();
-            executor.awaitTermination(1, TimeUnit.MINUTES); // Ensure graceful shutdown
+            executor.awaitTermination(1, TimeUnit.MINUTES); 
         }
     }
 
@@ -117,7 +116,7 @@ public class ImageManager {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
-                    keys.add(line.replace(".png", "")); // remove extension if you prefer keys only
+                    keys.add(line.replace(".png", ""));
                 }
             }
         } catch (IOException | NullPointerException e) {

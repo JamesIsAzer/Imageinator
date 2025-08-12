@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class ImageFactory {
 
     private static final Cache<String, byte[]> renderCache = Caffeine.newBuilder()
-        .expireAfterWrite(5, TimeUnit.MINUTES)
-        .maximumSize(100)
+        .expireAfterAccess(5, TimeUnit.MINUTES)
+        .maximumSize(30)
         .build();
 
     public static <U> byte[] getCachedRender(

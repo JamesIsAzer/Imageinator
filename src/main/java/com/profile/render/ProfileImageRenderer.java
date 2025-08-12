@@ -249,7 +249,6 @@ public class ProfileImageRenderer {
     }
 
     private static void drawTownhallSection(Graphics2D g, Profile profile, int x, int y) {
-        // Placeholder for townhall image rendering
         int townhallImageWidth = 214;
         int townhallImageHeight = 214;
 
@@ -344,7 +343,7 @@ public class ProfileImageRenderer {
                 Color.decode("#6f659b")
             },
             new float[] { 0f, 1f },
-            false // false = vertical
+            false
         );
         g.setPaint(gradient);
         Shape roundedRect = new RoundRectangle2D.Float(x, y, width, height, radius, radius);
@@ -528,7 +527,7 @@ public class ProfileImageRenderer {
                 Color.decode("#9ca5b0")
             },
             new float[] {0f, 1f},
-            false // vertical gradient
+            false 
         );
 
         g.setPaint(gradient);
@@ -556,11 +555,11 @@ public class ProfileImageRenderer {
         Paint gradient = GradientManager.createOptimizedGradient(
             "reflection", x, y, width, height,
             new Color[]{
-                new Color(255, 255, 255, (int)(0.25 * 255)), // 0.25 alpha
-                new Color(255, 255, 255, (int)(0.10 * 255))  // 0.10 alpha
+                new Color(255, 255, 255, (int)(0.25 * 255)),
+                new Color(255, 255, 255, (int)(0.10 * 255)) 
             },
             new float[]{0f, 1f},
-            false // vertical gradient
+            false
         );
 
         g.setPaint(gradient);

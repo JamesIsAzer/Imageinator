@@ -11,4 +11,14 @@ RUN mkdir -p logs && chmod 755 logs
 EXPOSE 34827
 
 # Run the JAR
-ENTRYPOINT ["java", "-Xmx512m", "-jar", "app.jar"]
+ENTRYPOINT [ \
+  "java", \
+  "-Xmx512m", \
+  "-Xms256m", \
+  "-XX:MaxRAM=900m", \
+  "-XX:+UseG1GC", \
+  "-XX:MaxMetaspaceSize=128m", \
+  "-XX:+UseContainerSupport", \
+  "-jar", \
+  "app.jar" \
+]

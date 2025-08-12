@@ -13,6 +13,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +46,6 @@ public class TroopShowcaseImageRenderer {
         g.setPaint(background);
         g.fillRect(0, 0, width, height);
 
-        // Draw each section
         drawHeroSection(g, 18, 18, profile.heroes);
         drawPetSection(g, 18, 236, profile.troops);
         drawTroopSection(g, 298, 18, profile.troops);
@@ -56,42 +57,33 @@ public class TroopShowcaseImageRenderer {
         return image;
     }
 
-    public static boolean isMaxed(Unit[] list, String name) {
-        for (Unit unit : list) {
-            if (unit.name.equals(name)) {
-                return unit.level == unit.maxLevel;
-            }
-        }
-        return false;
+    public static boolean isMaxed(Optional<Unit> troop) {
+        return troop.get().level == troop.get().maxLevel;
     }
 
-    public static boolean isUnlocked(Unit[] list, String name) {
-        for (Unit unit : list) {
-            if (unit.name.equals(name)) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean isUnlocked(Optional<Unit> troop) {
+        return troop.isPresent();
     }
 
-    public static int getLevel(Unit[] list, String name) {
-        for (Unit unit : list) {
-            if (unit.name.equals(name)) {
-                return unit.level;
-            }
-        }
-        return 0;
+    public static int getLevel(Optional<Unit> troop) {
+        return troop.get().level;
     }
 
-    public static TroopData getTroopData(Unit[] list, String name) {
+    public static TroopData getTroopData(Unit[] list, String name, String village) {
+        Optional<Unit> troop = Arrays.asList(list)
+            .stream()
+            .filter(t -> t.name.equals(name) && t.village.equals(village))
+            .findFirst();
+
+        if (!troop.isPresent()) return new TroopData(false, false, 0);
+        
         return new TroopData(
-            isMaxed(list, name),
-            isUnlocked(list, name),
-            getLevel(list, name)
+            isMaxed(troop),
+            isUnlocked(troop),
+            getLevel(troop)
         );
     }
 
-    // Data holder class
     public static class TroopData {
         public final boolean maxed;
         public final boolean unlocked;
@@ -114,11 +106,11 @@ public class TroopShowcaseImageRenderer {
 
         FontUtils.drawClashFont(g, "Heroes", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
-        TroopData barbarianKing = getTroopData(heroes, "Barbarian King");
-        TroopData archerQueen = getTroopData(heroes, "Archer Queen");
-        TroopData minionPrince = getTroopData(heroes, "Minion Prince");
-        TroopData grandWarden = getTroopData(heroes, "Grand Warden");
-        TroopData royalChampion = getTroopData(heroes, "Royal Champion");
+        TroopData barbarianKing = getTroopData(heroes, "Barbarian King", "home");
+        TroopData archerQueen = getTroopData(heroes, "Archer Queen", "home");
+        TroopData minionPrince = getTroopData(heroes, "Minion Prince", "home");
+        TroopData grandWarden = getTroopData(heroes, "Grand Warden", "home");
+        TroopData royalChampion = getTroopData(heroes, "Royal Champion", "home");
 
         drawTroopIcon(barbarianKing, g, "Icon_HV_Hero_Barbarian_King", x + 9, y + 35);
         drawTroopIcon(archerQueen, g, "Icon_HV_Hero_Archer_Queen", x + 96, y + 35);
@@ -138,17 +130,17 @@ public class TroopShowcaseImageRenderer {
 
         FontUtils.drawClashFont(g, "Pets", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
-        TroopData lassi = getTroopData(pets, "L.A.S.S.I");
-        TroopData mightyYak = getTroopData(pets, "Mighty Yak");
-        TroopData electroOwl = getTroopData(pets, "Electro Owl");
-        TroopData unicorn = getTroopData(pets, "Unicorn");
-        TroopData phoenix = getTroopData(pets, "Phoenix");
-        TroopData poisonLizard = getTroopData(pets, "Poison Lizard");
-        TroopData diggy = getTroopData(pets, "Diggy");
-        TroopData frosty = getTroopData(pets, "Frosty");
-        TroopData spiritFox = getTroopData(pets, "Spirit Fox");
-        TroopData angryJelly = getTroopData(pets, "Angry Jelly");
-        TroopData sneezy = getTroopData(pets, "Sneezy");
+        TroopData lassi = getTroopData(pets, "L.A.S.S.I", "home");
+        TroopData mightyYak = getTroopData(pets, "Mighty Yak", "home");
+        TroopData electroOwl = getTroopData(pets, "Electro Owl", "home");
+        TroopData unicorn = getTroopData(pets, "Unicorn", "home");
+        TroopData phoenix = getTroopData(pets, "Phoenix", "home");
+        TroopData poisonLizard = getTroopData(pets, "Poison Lizard", "home");
+        TroopData diggy = getTroopData(pets, "Diggy", "home");
+        TroopData frosty = getTroopData(pets, "Frosty", "home");
+        TroopData spiritFox = getTroopData(pets, "Spirit Fox", "home");
+        TroopData angryJelly = getTroopData(pets, "Angry Jelly", "home");
+        TroopData sneezy = getTroopData(pets, "Sneezy", "home");
 
         drawTroopIcon(lassi, g, "Icon_HV_Hero_Pets_LASSI", x + 9, y + 35);
         drawTroopIcon(electroOwl, g, "Icon_HV_Hero_Pets_Electro_Owl", x + 96, y + 35);
@@ -173,36 +165,36 @@ public class TroopShowcaseImageRenderer {
 
         FontUtils.drawClashFont(g, "Troops", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
-        TroopData barbarian = getTroopData(troops, "Barbarian");
-        TroopData archer = getTroopData(troops, "Archer");
-        TroopData giant = getTroopData(troops, "Giant");
-        TroopData goblin = getTroopData(troops, "Goblin");
-        TroopData wallBreaker = getTroopData(troops, "Wall Breaker");
-        TroopData balloon = getTroopData(troops, "Balloon");
-        TroopData wizard = getTroopData(troops, "Wizard");
-        TroopData healer = getTroopData(troops, "Healer");
-        TroopData dragon = getTroopData(troops, "Dragon");
-        TroopData pekka = getTroopData(troops, "P.E.K.K.A");
-        TroopData babyDragon = getTroopData(troops, "Baby Dragon");
-        TroopData miner = getTroopData(troops, "Miner");
-        TroopData electroDragon = getTroopData(troops, "Electro Dragon");
-        TroopData yeti = getTroopData(troops, "Yeti");
-        TroopData dragonRider = getTroopData(troops, "Dragon Rider");
-        TroopData electroTitan = getTroopData(troops, "Electro Titan");
-        TroopData rootRider = getTroopData(troops, "Root Rider");
-        TroopData thrower = getTroopData(troops, "Thrower");
-        TroopData minion = getTroopData(troops, "Minion");
-        TroopData hogRider = getTroopData(troops, "Hog Rider");
-        TroopData valkyrie = getTroopData(troops, "Valkyrie");
-        TroopData golem = getTroopData(troops, "Golem");
-        TroopData witch = getTroopData(troops, "Witch");
-        TroopData lavaHound = getTroopData(troops, "Lava Hound");
-        TroopData bowler = getTroopData(troops, "Bowler");
-        TroopData iceGolem = getTroopData(troops, "Ice Golem");
-        TroopData headhunter = getTroopData(troops, "Headhunter");
-        TroopData apprenticeWarden = getTroopData(troops, "Apprentice Warden");
-        TroopData druid = getTroopData(troops, "Druid");
-        TroopData furnace = getTroopData(troops, "Furnace");
+        TroopData barbarian = getTroopData(troops, "Barbarian", "home");
+        TroopData archer = getTroopData(troops, "Archer", "home");
+        TroopData giant = getTroopData(troops, "Giant", "home");
+        TroopData goblin = getTroopData(troops, "Goblin", "home");
+        TroopData wallBreaker = getTroopData(troops, "Wall Breaker", "home");
+        TroopData balloon = getTroopData(troops, "Balloon", "home");
+        TroopData wizard = getTroopData(troops, "Wizard", "home");
+        TroopData healer = getTroopData(troops, "Healer", "home");
+        TroopData dragon = getTroopData(troops, "Dragon", "home");
+        TroopData pekka = getTroopData(troops, "P.E.K.K.A", "home");
+        TroopData babyDragon = getTroopData(troops, "Baby Dragon", "home");
+        TroopData miner = getTroopData(troops, "Miner", "home");
+        TroopData electroDragon = getTroopData(troops, "Electro Dragon", "home");
+        TroopData yeti = getTroopData(troops, "Yeti", "home");
+        TroopData dragonRider = getTroopData(troops, "Dragon Rider", "home");
+        TroopData electroTitan = getTroopData(troops, "Electro Titan", "home");
+        TroopData rootRider = getTroopData(troops, "Root Rider", "home");
+        TroopData thrower = getTroopData(troops, "Thrower", "home");
+        TroopData minion = getTroopData(troops, "Minion", "home");
+        TroopData hogRider = getTroopData(troops, "Hog Rider", "home");
+        TroopData valkyrie = getTroopData(troops, "Valkyrie", "home");
+        TroopData golem = getTroopData(troops, "Golem", "home");
+        TroopData witch = getTroopData(troops, "Witch", "home");
+        TroopData lavaHound = getTroopData(troops, "Lava Hound", "home");
+        TroopData bowler = getTroopData(troops, "Bowler", "home");
+        TroopData iceGolem = getTroopData(troops, "Ice Golem", "home");
+        TroopData headhunter = getTroopData(troops, "Headhunter", "home");
+        TroopData apprenticeWarden = getTroopData(troops, "Apprentice Warden", "home");
+        TroopData druid = getTroopData(troops, "Druid", "home");
+        TroopData furnace = getTroopData(troops, "Furnace", "home");
 
         drawTroopIcon(barbarian, g, "Icon_HV_Barbarian", x + 9, y + 35);
         drawTroopIcon(archer, g, "Icon_HV_Archer", x + 96, y + 35);
@@ -251,21 +243,21 @@ public class TroopShowcaseImageRenderer {
 
         FontUtils.drawClashFont(g, "Spells", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
-        TroopData lightning = getTroopData(spells, "Lightning Spell");
-        TroopData heal = getTroopData(spells, "Healing Spell");
-        TroopData rage = getTroopData(spells, "Rage Spell");
-        TroopData jump = getTroopData(spells, "Jump Spell");
-        TroopData freeze = getTroopData(spells, "Freeze Spell");
-        TroopData clone = getTroopData(spells, "Clone Spell");
-        TroopData invisibility = getTroopData(spells, "Invisibility Spell");
-        TroopData recall = getTroopData(spells, "Recall Spell");
-        TroopData revive = getTroopData(spells, "Revive Spell");
-        TroopData poison = getTroopData(spells, "Poison Spell");
-        TroopData earthquake = getTroopData(spells, "Earthquake Spell");
-        TroopData haste = getTroopData(spells, "Haste Spell");
-        TroopData skeleton = getTroopData(spells, "Skeleton Spell");
-        TroopData bat = getTroopData(spells, "Bat Spell");
-        TroopData overgrowth = getTroopData(spells, "Overgrowth Spell");
+        TroopData lightning = getTroopData(spells, "Lightning Spell", "home");
+        TroopData heal = getTroopData(spells, "Healing Spell", "home");
+        TroopData rage = getTroopData(spells, "Rage Spell", "home");
+        TroopData jump = getTroopData(spells, "Jump Spell", "home");
+        TroopData freeze = getTroopData(spells, "Freeze Spell", "home");
+        TroopData clone = getTroopData(spells, "Clone Spell", "home");
+        TroopData invisibility = getTroopData(spells, "Invisibility Spell", "home");
+        TroopData recall = getTroopData(spells, "Recall Spell", "home");
+        TroopData revive = getTroopData(spells, "Revive Spell", "home");
+        TroopData poison = getTroopData(spells, "Poison Spell", "home");
+        TroopData earthquake = getTroopData(spells, "Earthquake Spell", "home");
+        TroopData haste = getTroopData(spells, "Haste Spell", "home");
+        TroopData skeleton = getTroopData(spells, "Skeleton Spell", "home");
+        TroopData bat = getTroopData(spells, "Bat Spell", "home");
+        TroopData overgrowth = getTroopData(spells, "Overgrowth Spell", "home");
 
         drawTroopIcon(lightning, g, "Icon_HV_Spell_Lightning", x + 9, y + 35);
         drawTroopIcon(heal, g, "Icon_HV_Spell_Heal", x + 96, y + 35);
@@ -298,14 +290,14 @@ public class TroopShowcaseImageRenderer {
 
         FontUtils.drawClashFont(g, "Siege Machines", x + 9, y + 7, 25, false, Color.WHITE, 2);
 
-        TroopData wallWrecker = getTroopData(siegeMachines, "Wall Wrecker");
-        TroopData battleBlimp = getTroopData(siegeMachines, "Battle Blimp");
-        TroopData stoneSlammer = getTroopData(siegeMachines, "Stone Slammer");
-        TroopData siegeBarracks = getTroopData(siegeMachines, "Siege Barracks");
-        TroopData logLauncher = getTroopData(siegeMachines, "Log Launcher");
-        TroopData flameFlinger = getTroopData(siegeMachines, "Flame Flinger");
-        TroopData battleDrill = getTroopData(siegeMachines, "Battle Drill");
-        TroopData troopLauncher = getTroopData(siegeMachines, "Troop Launcher");
+        TroopData wallWrecker = getTroopData(siegeMachines, "Wall Wrecker", "home");
+        TroopData battleBlimp = getTroopData(siegeMachines, "Battle Blimp", "home");
+        TroopData stoneSlammer = getTroopData(siegeMachines, "Stone Slammer", "home");
+        TroopData siegeBarracks = getTroopData(siegeMachines, "Siege Barracks", "home");
+        TroopData logLauncher = getTroopData(siegeMachines, "Log Launcher", "home");
+        TroopData flameFlinger = getTroopData(siegeMachines, "Flame Flinger", "home");
+        TroopData battleDrill = getTroopData(siegeMachines, "Battle Drill", "home");
+        TroopData troopLauncher = getTroopData(siegeMachines, "Troop Launcher", "home");
  
         drawTroopIcon(wallWrecker, g, "Icon_HV_Siege_Machine_Wall_Wrecker", x + 9, y + 35);
         drawTroopIcon(battleBlimp, g, "Icon_HV_Siege_Machine_Battle_Blimp", x + 96, y + 35);
@@ -340,15 +332,12 @@ public class TroopShowcaseImageRenderer {
         int height = 70;
         int borderWidth = 1;
 
-        // Step 1: Draw drop shadow below everything (outside the clip)
         BlurUtils.drawDropShadow(g, x, y, width, height, radius, 0.5f);
 
-        // Step 2: Clip to the rounded rectangle area
         RoundRectangle2D clipShape = new RoundRectangle2D.Float(x, y, width, height, radius, radius);
         Shape originalClip = g.getClip();
         g.setClip(clipShape);
 
-        // Step 3: Draw inner box
         int paddingTop = 1;
         int paddingSides = 1;
         int innerX = x + paddingSides;
@@ -360,11 +349,9 @@ public class TroopShowcaseImageRenderer {
         g.setColor(new Color(152, 152, 205)); // Inner box color
         RenderingUtility.drawRoundedRect(g, innerX, innerY, innerWidth, innerHeight, innerRadius);
 
-        // Step 4: Draw troop image (grayscale if locked)
         BufferedImage drawnImage = troopData.unlocked ? image : toGrayscale(image);
         g.drawImage(drawnImage, x, y, width, height, null);
 
-        // Step 5: Draw level box if unlocked
         int levelBoxWidth = 21;
         int levelBoxHeight = 21;
         int levelBoxPadding = 2;
@@ -382,10 +369,8 @@ public class TroopShowcaseImageRenderer {
             );
         }
 
-        // Step 6: Restore clip so border is not cut off
         g.setClip(originalClip);
 
-        // Step 7: Draw border
         g.setColor(Color.BLACK);
         g.setStroke(new BasicStroke(borderWidth));
         RenderingUtility.drawRoundedRectOutline(g, x, y, width, height, radius);
