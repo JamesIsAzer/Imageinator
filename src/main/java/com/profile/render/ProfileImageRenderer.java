@@ -104,7 +104,7 @@ public class ProfileImageRenderer {
         String username = profile.name;
         String playerTag = profile.tag;
         String clanRole = profile.role;
-        var league = profile.league;
+        var league = profile.leagueTier;
         int trophies = profile.trophies;
         int expLevel = profile.expLevel;
 
@@ -161,7 +161,7 @@ public class ProfileImageRenderer {
         int emblemWidth, 
         int emblemHeight,
         int trophies, 
-        League league, 
+        League leagueTier, 
         Integer rank
     ) {
         int lineStartFromEmblemX = x + (emblemWidth / 2);
@@ -196,7 +196,7 @@ public class ProfileImageRenderer {
         g.drawLine(lineStartFromEmblemX, line2Y, lineEndX, line2Y);
 
         // League name text
-        String leagueName = getLeagueName(league);
+        String leagueName = getLeagueName(leagueTier);
 
         FontUtils.drawClashFont(g, leagueName, lineStartFromEmblemX + 70, line1Y - 10, 19, false, Color.WHITE, 2);
 
@@ -208,8 +208,9 @@ public class ProfileImageRenderer {
 
         // Emblem image
         BufferedImage emblemImage;
-        if (league != null && league.iconUrls != null && league.iconUrls.medium != null) {
-            emblemImage = ImageManager.loadImageFromURL(league.iconUrls.medium);
+        
+        if (leagueTier != null && leagueTier.iconUrls != null && leagueTier.iconUrls.small != null) {
+            emblemImage = ImageManager.loadImageFromURL(leagueTier.iconUrls.small);
         } else {
             emblemImage = ImageManager.getCachedImage("Icon_HV_League_None");
         }

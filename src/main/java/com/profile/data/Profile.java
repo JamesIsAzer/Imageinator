@@ -17,7 +17,7 @@ public class Profile {
     public int donations;
     public int donationsReceived;
     public Clan clan;
-    public League league;
+    public League leagueTier;
     public LegendStatistics legendStatistics;
     public Achievement[] achievements;
     public Unit[] troops;
