@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class DateUtils {
     public static String formatYearMonth(String dateStr) {
-        if (dateStr == null || !dateStr.matches("\\d{4}-\\d{2}")) {
+        if (dateStr == null || !dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
             return "Unknown";
         }
 

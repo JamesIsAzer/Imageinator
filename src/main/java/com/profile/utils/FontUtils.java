@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class FontUtils {
 
@@ -98,5 +101,37 @@ public class FontUtils {
 
     public static String formatNumberWithSpaces(int number) {
         return String.format("%,d", number).replace(',', ' ');
+    }
+
+    public static String formatPlace(Integer number) {
+        if (number <= 0) return String.valueOf(number);
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(' ');
+        DecimalFormat formatter = new DecimalFormat("#,###", symbols);
+
+        int mod100 = number % 100;
+        String suffix;
+
+        if (mod100 >= 11 && mod100 <= 13) {
+            suffix = "th";
+        } else {
+            switch (number % 10) {
+                case 1:
+                    suffix = "st";
+                    break;
+                case 2:
+                    suffix = "nd";
+                    break;
+                case 3:
+                    suffix = "rd";
+                    break;
+                default:
+                    suffix = "th";
+                    break;
+            }
+        }
+
+        return formatter.format(number) + suffix + " place";
     }
 }

@@ -384,23 +384,26 @@ public class ProfileImageRenderer {
     }
 
     private static void drawTrophyLegendarySection(Graphics2D g, LegendSeason season, int x, int y, String type) {
-        String rank = (season != null && season.rank != null) ? String.valueOf(season.rank) : null;
+        Integer rank = (season != null && season.rank != null) ? season.rank : null;
         Integer trophies = (season != null) ? season.trophies : null;
         String date = (season != null) ? season.id : null;
 
         if (season != null) {
-            BufferedImage legendImage = ImageManager.getCachedImage("Icon_HV_League_Legend");
+            BufferedImage legendImage = ImageManager.getCachedImage("legendleague");
             if (legendImage != null) {
                 g.drawImage(legendImage, x, y + 35, 88, 88, null);
             }
 
-            if (rank != null) {
-                FontUtils.clashFontScaled(g, rank, x + 44, y + 77, 60, 63, true);
-            }
+            //if (rank != null) {
+            //    FontUtils.clashFontScaled(g, rank, x + 44, y + 77, 60, 63, true);
+            //}
 
             FontUtils.drawClashFont(g,type + ": " + DateUtils.formatYearMonth(date), x + 96, y + 44, 18, false, Color.WHITE, 2);
 
-            drawStatBanner(g, x + 96, y + 70, 53, 53, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"));
+            String rankFormatted = FontUtils.formatPlace(rank);
+
+            FontUtils.drawClashFont(g,rankFormatted, x + 96, y + 65, 25, false, Color.WHITE, 2);
+            drawStatBanner(g, x + 96, y + 93, 35, 35, "trophy", trophies != null ? trophies : 0, Color.decode("#242135"), 25, 0.75);
         } else {
             BufferedImage unrankedImage = ImageManager.getCachedImage("Icon_HV_League_None");
             if (unrankedImage != null) {
@@ -415,47 +418,62 @@ public class ProfileImageRenderer {
 
     public static void drawLegendTrophySection(Graphics2D g, int legendTrophies, int x, int y) {
         FontUtils.drawClashFont(g, "Legend trophies:", x, y + 44, 18, false, Color.WHITE, 2);
-        drawStatBanner(g, x, y + 70, 53, 53, "legendtrophy", legendTrophies, Color.decode("#242135"));
+        drawStatBanner(g, x, y + 70, 53, 53, "legendtrophy", legendTrophies, Color.decode("#242135"),25, 1.0);
     }
 
-    private static void drawStatBanner(Graphics2D g, int x, int y, int emblemWidth, int emblemHeight, String imageName, int stat, Color statBgColor) {
+    private static void drawStatBanner(
+        Graphics2D g,
+        int x,
+        int y,
+        int emblemWidth,
+        int emblemHeight,
+        String imageName,
+        int stat,
+        Color statBgColor,
+        int fontSize,
+        double scale
+    ) {
         int emblemCenterY = y + (emblemHeight / 2);
-        int barHeight = 35;
-        int barRadius = barHeight / 6;
-        int barPadding = 20 + (emblemWidth / 2);
-        int iconSize = 21;
-        int spacingBetween = 7;
+
+        int barHeight      = (int) Math.round(35  * scale);
+        int barRadius      = barHeight / 6;
+        int barPadding     = (int) Math.round((20 + (emblemWidth / 2)) * scale);
+        int iconSize       = (int) Math.round(21  * scale);
+        int spacingBetween = (int) Math.round(7   * scale);
+        int extraPadding   = (int) Math.round(28  * scale);
+        int textYOffset    = (int) Math.round(11  * scale);
 
         BufferedImage statImage = ImageManager.getCachedImage(imageName);
         if (statImage == null) return;
 
         String statText = String.valueOf(stat);
 
-        // Estimate text width using metrics
-        
-        Font font = new Font("Clash", Font.PLAIN, 25);
+        // Scaled font
+        int scaledFontSize = (int) Math.round(fontSize * scale);
+        Font font = new Font("Clash", Font.PLAIN, scaledFontSize);
         g.setFont(font);
         FontMetrics metrics = g.getFontMetrics();
         int textWidth = metrics.stringWidth(statText);
 
         int barX = x + (emblemWidth / 2);
         int barY = emblemCenterY - (barHeight / 2);
-        int barWidth = barPadding + iconSize + spacingBetween + textWidth + 28;
+        int barWidth = barPadding + iconSize + spacingBetween + textWidth + extraPadding;
 
-        // Draw the rounded rectangle background
+        // Background bar
         g.setColor(statBgColor != null ? statBgColor : Color.decode("#38385c"));
         drawRightRoundedRect(g, barX, barY, barWidth, barHeight, barRadius);
 
-
-        // Draw emblem image
+        // Emblem image (caller controls emblemWidth/Height scaling)
         g.drawImage(statImage, x, y, emblemWidth, emblemHeight, null);
 
         int iconX = barX + barPadding;
 
-        // Draw the stat text
+        // Text position
         int textX = iconX + iconSize + spacingBetween;
-        int textY = emblemCenterY - 11;
-        FontUtils.drawClashFont(g, statText, textX, textY, 25, false, Color.WHITE, 2);
+        int textY = emblemCenterY - textYOffset;
+
+        // Use scaled font size for your Clash font as well
+        FontUtils.drawClashFont(g, statText, textX, textY, scaledFontSize, false, Color.WHITE, 2);
     }
 
     private static void drawRightRoundedRect(Graphics2D g, int x, int y, int width, int height, int radius) {
