@@ -11,6 +11,7 @@ Building_HV_Town_Hall_level_14.png
 Building_HV_Town_Hall_level_15.png
 Building_HV_Town_Hall_level_16.png
 Building_HV_Town_Hall_level_17.png
+Building_HV_Town_Hall_level_18.png
 Building_HV_Town_Hall_level_2.png
 Building_HV_Town_Hall_level_3.png
 Building_HV_Town_Hall_level_4.png
