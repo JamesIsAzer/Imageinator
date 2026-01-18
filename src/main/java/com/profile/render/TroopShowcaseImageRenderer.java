@@ -31,7 +31,7 @@ public class TroopShowcaseImageRenderer {
         logger.info(String.format("Generating troop showcase image for %s", profile.tag));
 
         int width = 1033;
-        int height = 718;
+        int height = 806;
 
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
@@ -50,8 +50,8 @@ public class TroopShowcaseImageRenderer {
         drawPetSection(g, 18, 236, profile.troops);
         drawTroopSection(g, 298, 18, profile.troops);
         drawSpellSection(g, 753, 18, profile.spells);
-        drawSiegeMachineSection(g, 298, 586, profile.troops);
-        ImageManager.drawSignature(g, 18, 613, 3);
+        drawSiegeMachineSection(g, 298, 674, profile.troops);
+        ImageManager.drawSignature(g, 18, 657, 3);
 
         g.dispose();
         return image;
@@ -157,7 +157,7 @@ public class TroopShowcaseImageRenderer {
 
     public static void drawTroopSection(Graphics2D g, int x, int y, Unit[] troops) {
         int width = 438;
-        int height = 551;
+        int height = 639;
         int radius = 10;
 
         g.setColor(Color.decode("#636e8f"));
@@ -183,6 +183,8 @@ public class TroopShowcaseImageRenderer {
         TroopData electroTitan = getTroopData(troops, "Electro Titan", "home");
         TroopData rootRider = getTroopData(troops, "Root Rider", "home");
         TroopData thrower = getTroopData(troops, "Thrower", "home");
+        TroopData meteorgolem = getTroopData(troops, "Meteor Golem", "home");
+
         TroopData minion = getTroopData(troops, "Minion", "home");
         TroopData hogRider = getTroopData(troops, "Hog Rider", "home");
         TroopData valkyrie = getTroopData(troops, "Valkyrie", "home");
@@ -217,25 +219,27 @@ public class TroopShowcaseImageRenderer {
         drawTroopIcon(electroTitan, g, "Icon_HV_Electro_Titan", x + 9, y + 298);
         drawTroopIcon(rootRider, g, "Icon_HV_Root_Rider", x + 96, y + 298);
         drawTroopIcon(thrower, g, "Icon_HV_Thrower", x + 184, y + 298);
-        drawTroopIcon(minion, g, "Icon_HV_Minion", x + 271, y + 298);
-        drawTroopIcon(hogRider, g, "Icon_HV_Hog_Rider", x + 359, y + 298);
+        drawTroopIcon(meteorgolem, g, "Icon_HV_Meteor_Golem", x + 271, y + 298);
+        drawTroopIcon(minion, g, "Icon_HV_Minion", x + 359, y + 298);
 
-        drawTroopIcon(valkyrie, g, "Icon_HV_Valkyrie", x + 9, y + 385);
-        drawTroopIcon(golem, g, "Icon_HV_Golem", x + 96, y + 385);
-        drawTroopIcon(witch, g, "Icon_HV_Witch", x + 184, y + 385);
-        drawTroopIcon(lavaHound, g, "Icon_HV_Lava_Hound", x + 271, y + 385);
-        drawTroopIcon(bowler, g, "Icon_HV_Bowler", x + 359, y + 385);
+        drawTroopIcon(hogRider, g, "Icon_HV_Hog_Rider", x + 9, y + 385);
+        drawTroopIcon(valkyrie, g, "Icon_HV_Valkyrie", x + 96, y + 385);
+        drawTroopIcon(golem, g, "Icon_HV_Golem", x + 184, y + 385);
+        drawTroopIcon(witch, g, "Icon_HV_Witch", x + 271, y + 385);
+        drawTroopIcon(lavaHound, g, "Icon_HV_Lava_Hound", x + 359, y + 385);
 
-        drawTroopIcon(iceGolem, g, "Icon_HV_Ice_Golem", x + 9, y + 473);
-        drawTroopIcon(headhunter, g, "Icon_HV_Headhunter", x + 96, y + 473);
-        drawTroopIcon(apprenticeWarden, g, "Icon_HV_Apprentice_Warden", x + 184, y + 473);
-        drawTroopIcon(druid, g, "Icon_HV_Druid", x + 271, y + 473);
-        drawTroopIcon(furnace, g, "Icon_HV_Furnace", x + 359, y + 473);
+        drawTroopIcon(bowler, g, "Icon_HV_Bowler", x + 9, y + 473);
+        drawTroopIcon(iceGolem, g, "Icon_HV_Ice_Golem", x + 96, y + 473);
+        drawTroopIcon(headhunter, g, "Icon_HV_Headhunter", x + 184, y + 473);
+        drawTroopIcon(apprenticeWarden, g, "Icon_HV_Apprentice_Warden", x + 271, y + 473);
+        drawTroopIcon(druid, g, "Icon_HV_Druid", x + 359, y + 473);
+
+        drawTroopIcon(furnace, g, "Icon_HV_Furnace", x + 9, y + 561);
     }
 
     public static void drawSpellSection(Graphics2D g, int x, int y, Unit[] spells) {
         int width = 263;
-        int height = 464;
+        int height = 552;
         int radius = 10;
 
         g.setColor(Color.decode("#636e8f"));
@@ -253,11 +257,13 @@ public class TroopShowcaseImageRenderer {
         TroopData recall = getTroopData(spells, "Recall Spell", "home");
         TroopData revive = getTroopData(spells, "Revive Spell", "home");
         TroopData poison = getTroopData(spells, "Poison Spell", "home");
+        TroopData totem = getTroopData(spells, "Totem Spell", "home");
         TroopData earthquake = getTroopData(spells, "Earthquake Spell", "home");
         TroopData haste = getTroopData(spells, "Haste Spell", "home");
         TroopData skeleton = getTroopData(spells, "Skeleton Spell", "home");
         TroopData bat = getTroopData(spells, "Bat Spell", "home");
         TroopData overgrowth = getTroopData(spells, "Overgrowth Spell", "home");
+        TroopData iceblock = getTroopData(spells, "Ice Block Spell", "home");
 
         drawTroopIcon(lightning, g, "Icon_HV_Spell_Lightning", x + 9, y + 35);
         drawTroopIcon(heal, g, "Icon_HV_Spell_Heal", x + 96, y + 35);
@@ -271,13 +277,16 @@ public class TroopShowcaseImageRenderer {
         drawTroopIcon(recall, g, "Icon_HV_Spell_Recall", x + 96, y + 210);
         drawTroopIcon(revive, g, "Icon_HV_Spell_Revive", x + 184, y + 210);
 
-        drawTroopIcon(poison, g, "Icon_HV_Dark_Spell_Poison", x + 9, y + 298);
-        drawTroopIcon(earthquake, g, "Icon_HV_Dark_Spell_Earthquake", x + 96, y + 298);
-        drawTroopIcon(haste, g, "Icon_HV_Dark_Spell_Haste", x + 184, y + 298);
+        drawTroopIcon(totem, g, "Icon_HV_Spell_Totem", x + 9, y + 298);
+        drawTroopIcon(poison, g, "Icon_HV_Dark_Spell_Poison", x + 96, y + 298);
+        drawTroopIcon(earthquake, g, "Icon_HV_Dark_Spell_Earthquake", x + 184, y + 298);
 
-        drawTroopIcon(skeleton, g, "Icon_HV_Dark_Spell_Skeleton", x + 9, y + 385);
-        drawTroopIcon(bat, g, "Icon_HV_Dark_Spell_Bat", x + 96, y + 385);
-        drawTroopIcon(overgrowth, g, "Icon_HV_Dark_Spell_Overgrowth", x + 184, y + 385);
+        drawTroopIcon(haste, g, "Icon_HV_Dark_Spell_Haste", x + 9, y + 385);
+        drawTroopIcon(skeleton, g, "Icon_HV_Dark_Spell_Skeleton", x + 96, y + 385);
+        drawTroopIcon(bat, g, "Icon_HV_Dark_Spell_Bat", x + 184, y + 385);
+
+        drawTroopIcon(overgrowth, g, "Icon_HV_Dark_Spell_Overgrowth", x + 9, y + 473);
+        drawTroopIcon(iceblock, g, "Icon_HV_Spell_Ice_Block", x + 96, y + 473);
     }
 
     public static void drawSiegeMachineSection(Graphics2D g, int x, int y, Unit[] siegeMachines) {
