@@ -111,6 +111,7 @@ public class TroopShowcaseImageRenderer {
         TroopData minionPrince = getTroopData(heroes, "Minion Prince", "home");
         TroopData grandWarden = getTroopData(heroes, "Grand Warden", "home");
         TroopData royalChampion = getTroopData(heroes, "Royal Champion", "home");
+        TroopData dragonDuke = getTroopData(heroes, "Dragon Duke", "home");
 
         drawTroopIcon(barbarianKing, g, "Icon_HV_Hero_Barbarian_King", x + 9, y + 35);
         drawTroopIcon(archerQueen, g, "Icon_HV_Hero_Archer_Queen", x + 96, y + 35);
@@ -118,6 +119,7 @@ public class TroopShowcaseImageRenderer {
 
         drawTroopIcon(grandWarden, g, "Icon_HV_Hero_Grand_Warden", x + 9, y + 123);
         drawTroopIcon(royalChampion, g, "Icon_HV_Hero_Royal_Champion", x + 96, y + 123);
+        drawTroopIcon(dragonDuke, g, "Icon_HV_Hero_Dragon_Duke", x + 184, y + 123);
     }
 
     public static void drawPetSection(Graphics2D g, int x, int y, Unit[] pets) {
@@ -141,6 +143,7 @@ public class TroopShowcaseImageRenderer {
         TroopData spiritFox = getTroopData(pets, "Spirit Fox", "home");
         TroopData angryJelly = getTroopData(pets, "Angry Jelly", "home");
         TroopData sneezy = getTroopData(pets, "Sneezy", "home");
+        TroopData greedyRaven = getTroopData(pets, "Greedy Raven", "home");
 
         drawTroopIcon(lassi, g, "Icon_HV_Hero_Pets_LASSI", x + 9, y + 35);
         drawTroopIcon(electroOwl, g, "Icon_HV_Hero_Pets_Electro_Owl", x + 96, y + 35);
@@ -153,6 +156,7 @@ public class TroopShowcaseImageRenderer {
         drawTroopIcon(spiritFox, g, "Icon_HV_Hero_Pets_Spirit_Fox", x + 184, y + 210);
         drawTroopIcon(angryJelly, g, "Icon_HV_Hero_Pets_Angry_Jelly", x + 9, y + 298);
         drawTroopIcon(sneezy, g, "Icon_HV_Hero_Pets_Sneezy", x + 96, y + 298);
+        drawTroopIcon(greedyRaven, g, "Icon_HV_Hero_Pets_Greedy_Raven", x + 184, y + 298);
     }
 
     public static void drawTroopSection(Graphics2D g, int x, int y, Unit[] troops) {
