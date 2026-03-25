@@ -29,7 +29,7 @@ application {
     mainClass = 'com.App'
 }
 
-shadowJar {
+tasks.named("shadowJar") {
     archiveBaseName.set('executable')
     archiveClassifier.set('')
     archiveVersion.set('')
