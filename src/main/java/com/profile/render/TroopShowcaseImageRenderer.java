@@ -201,6 +201,7 @@ public class TroopShowcaseImageRenderer {
         TroopData apprenticeWarden = getTroopData(troops, "Apprentice Warden", "home");
         TroopData druid = getTroopData(troops, "Druid", "home");
         TroopData furnace = getTroopData(troops, "Furnace", "home");
+        TroopData ruinwitch = getTroopData(troops, "Ruin Witch", "home");
 
         drawTroopIcon(barbarian, g, "Icon_HV_Barbarian", x + 9, y + 35);
         drawTroopIcon(archer, g, "Icon_HV_Archer", x + 96, y + 35);
@@ -239,6 +240,7 @@ public class TroopShowcaseImageRenderer {
         drawTroopIcon(druid, g, "Icon_HV_Druid", x + 359, y + 473);
 
         drawTroopIcon(furnace, g, "Icon_HV_Furnace", x + 9, y + 561);
+        drawTroopIcon(ruinwitch, g, "Icon_HV_Ruin_Witch", x + 96, y + 561);
     }
 
     public static void drawSpellSection(Graphics2D g, int x, int y, Unit[] spells) {
@@ -268,6 +270,7 @@ public class TroopShowcaseImageRenderer {
         TroopData bat = getTroopData(spells, "Bat Spell", "home");
         TroopData overgrowth = getTroopData(spells, "Overgrowth Spell", "home");
         TroopData iceblock = getTroopData(spells, "Ice Block Spell", "home");
+        TroopData angry = getTroopData(spells, "Angry Spell", "home");
 
         drawTroopIcon(lightning, g, "Icon_HV_Spell_Lightning", x + 9, y + 35);
         drawTroopIcon(heal, g, "Icon_HV_Spell_Heal", x + 96, y + 35);
@@ -290,7 +293,8 @@ public class TroopShowcaseImageRenderer {
         drawTroopIcon(bat, g, "Icon_HV_Dark_Spell_Bat", x + 184, y + 385);
 
         drawTroopIcon(overgrowth, g, "Icon_HV_Dark_Spell_Overgrowth", x + 9, y + 473);
-        drawTroopIcon(iceblock, g, "Icon_HV_Spell_Ice_Block", x + 96, y + 473);
+        drawTroopIcon(iceblock, g, "Icon_HV_Dark_Spell_Ice_Block", x + 96, y + 473);
+        drawTroopIcon(angry, g, "Icon_HV_Dark_Spell_Angry", x + 184, y + 473);
     }
 
     public static void drawSiegeMachineSection(Graphics2D g, int x, int y, Unit[] siegeMachines) {
