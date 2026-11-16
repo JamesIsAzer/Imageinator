@@ -133,7 +133,7 @@ public class ImageManager {
     }
 
     public static BufferedImage getTownhallImage(int townhallLevel) {
-        int townhallCapped = Math.min(18, townhallLevel);
+        int townhallCapped = Math.min(19, townhallLevel);
         return getCachedImage("Building_HV_Town_Hall_level_" + townhallCapped);
     }
 
